@@ -4,9 +4,6 @@ executors:
   terraform-lint:
     docker:
       - image: gcr.io/cloud-foundation-cicd/cft/lint:2.5.0
-  google-cloud:
-    docker:
-      - image: google/cloud-sdk
   ubuntu-machine:
     machine:
       image: ubuntu-1604:201903-01
