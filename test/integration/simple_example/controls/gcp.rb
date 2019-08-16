@@ -14,11 +14,11 @@ control "gcp" do
     its('members') {should include "serviceAccount:#{service_account_email}" }
   end
 
-	describe google_cloudfunctions_cloud_function(project: "#{project_id}", location: "#{location}", name: "#{cloud_function_name}") do
-		it { should exist }
-		its('description') { should eq 'Created by Terraform' }
-		its('available_memory_mb') { should eq 128 }
-		its('https_trigger.url') { should match /\/#{cloud_function_name}$/ }
-	end
+  describe google_cloudfunctions_cloud_function(project: "#{project_id}", location: "#{location}", name: "#{cloud_function_name}") do
+    it { should exist }
+    its('description') { should eq 'Created by Terraform' }
+    its('available_memory_mb') { should eq 128 }
+    its('https_trigger.url') { should match /\/#{cloud_function_name}$/ }
+  end
 
 end
