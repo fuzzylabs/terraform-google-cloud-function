@@ -1,0 +1,43 @@
+version: 2.1
+
+# initiate build
+
+executors:
+  terraform-lint:
+    docker:
+      - image: gcr.io/cloud-foundation-cicd/cft/lint:2.5.0
+  ubuntu-machine:
+    machine:
+      image: ubuntu-1604:201903-01
+
+jobs:
+  lint:
+    executor: terraform-lint
+    steps:
+      - checkout
+      - run:
+          name: Sanity Test
+          command: make check
+  integration_test:
+    executor: ubuntu-machine
+    steps:
+      - checkout
+      - run:
+          name: Integration Test
+          command: |
+            echo $GCLOUD_SERVICE_KEY > credentials.json
+            export SERVICE_ACCOUNT_JSON=`cat credentials.json`
+            make test_integration_docker
+
+# Workflows determine the order of the defined jobs.
+workflows:
+  test_publish:
+    jobs:
+      - lint
+      - integration_test:
+          requires:
+            - lint
+      #    filters:
+      #      branches:
+      #        only:
+      #          - master

@@ -1,0 +1,18 @@
+name: simple_example
+depends:
+  - name: inspec-gcp
+    git: https://github.com/inspec/inspec-gcp.git
+    tag: v0.11.0
+attributes:
+  - name: project_id
+    required: true
+    type: string
+  - name: service_account_email
+    required: true
+    type: string
+  - name: region
+    required: true
+    type: string
+  - name: cloud_function_name
+    required: true
+    type: string
