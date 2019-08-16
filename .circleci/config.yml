@@ -1,5 +1,7 @@
 version: 2.1
 
+# initiate build
+
 executors:
   terraform-lint:
     docker:
